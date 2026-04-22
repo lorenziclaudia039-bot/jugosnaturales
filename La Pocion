@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>La Poción</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f7f4ef;
+      color: #3e2f26;
+      text-align: center;
+    }
+
+    header {
+      padding: 60px 20px;
+      background: #dfead7;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin: 15px 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #355e3b;
+      color: white;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: #2b4b30;
+    }
+
+    .info {
+      font-size: 0.95rem;
+      margin-top: 15px;
+      color: #6a5b4f;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>La Poción</h1>
+  <p>Jugos que se sienten bien ✨</p>
+</header>
+
+<section>
+
+  <div class="card">
+    <h2>Tamaños y precios</h2>
+    <p>12 oz — $12</p>
+    <p>16 oz — $15</p>
+    <p>24 oz — $18</p>
+
+    <p class="info">
+      Incluye hasta 3 ingredientes.<br>
+      Ingredientes extra desde $2.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Ordena tu jugo</h2>
+
+    <input id="name" placeholder="Tu nombre">
+
+    <select id="size">
+      <option value="">Selecciona tamaño</option>
+      <option>12 oz - $12</option>
+      <option>16 oz - $15</option>
+      <option>24 oz - $18</option>
+    </select>
+
+    <textarea id="ingredients" placeholder="Ingredientes (1 a 3 incluidos)"></textarea>
+
+    <textarea id="extra" placeholder="Ingredientes adicionales (+$2)"></textarea>
+
+    <button onclick="sendOrder()">Enviar pedido por WhatsApp</button>
+
+    <p class="info">
+      Entregas todos los jueves en Montehiedra<br>
+      3:00 pm - 6:00 pm
+    </p>
+  </div>
+
+</section>
+
+<script>
+  const phone = "17874324865";
+
+  function sendOrder() {
+    let name = document.getElementById("name").value;
+    let size = document.getElementById("size").value;
+    let ingredients = document.getElementById("ingredients").value;
+    let extra = document.getElementById("extra").value;
+
+    let msg = `Hola, quiero ordenar en La Poción.%0A%0A`;
+    msg += `Nombre: ${name}%0A`;
+    msg += `Tamaño: ${size}%0A`;
+    msg += `Ingredientes: ${ingredients}%0A`;
+
+    if (extra.trim() !== "") {
+      msg += `Extras: ${extra}%0A`;
+    }
+
+    msg += `%0AEntrega jueves en Montehiedra (3pm - 6pm)`;
+
+    window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
+  }
+</script>
+
+</body>
+</html>
+
+add website
