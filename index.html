@@ -6,140 +6,354 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      background: #f7f4ef;
+      background: #f8f4ee;
       color: #3e2f26;
-      text-align: center;
     }
 
     header {
+      background: linear-gradient(135deg, #dfead7, #f3eadb);
+      text-align: center;
       padding: 60px 20px;
-      background: #dfead7;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+    header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      color: #355e3b;
     }
 
-    section {
-      padding: 40px 20px;
-      max-width: 600px;
+    header p {
+      margin-top: 10px;
+      font-size: 1.1rem;
+    }
+
+    .container {
+      max-width: 950px;
       margin: auto;
+      padding: 40px 20px 60px;
     }
 
     .card {
       background: white;
-      padding: 20px;
-      border-radius: 15px;
-      margin: 15px 0;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
     }
 
-    select, input, textarea {
+    h2 {
+      margin-top: 0;
+      color: #355e3b;
+    }
+
+    h3 {
+      color: #355e3b;
+      margin-bottom: 8px;
+    }
+
+    .friendly-note {
+      font-size: 0.97rem;
+      color: #6a5b4f;
+      line-height: 1.5;
+    }
+
+    .bottle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .bottle-box {
+      background: #fcfaf7;
+      border: 1px solid #eadfd2;
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .price {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: #2f4f2f;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 0.96rem;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
       width: 100%;
       padding: 12px;
-      margin-top: 10px;
       border-radius: 10px;
       border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .ingredients-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 14px;
+      margin-top: 8px;
+    }
+
+    .ingredients-list label {
+      font-weight: normal;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .summary {
+      background: #fffaf2;
+      border: 1px solid #e8dcc9;
+      border-radius: 16px;
+      padding: 18px;
+      white-space: pre-line;
+      line-height: 1.6;
     }
 
     button {
-      margin-top: 15px;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
+      width: 100%;
       background: #355e3b;
       color: white;
-      cursor: pointer;
-      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
       font-size: 1rem;
+      cursor: pointer;
+      margin-top: 15px;
     }
 
     button:hover {
       background: #2b4b30;
     }
 
-    .info {
-      font-size: 0.95rem;
-      margin-top: 15px;
+    .small {
+      font-size: 0.92rem;
       color: #6a5b4f;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 20px 40px;
+      color: #6a5b4f;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      .ingredients-list {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-
 <body>
 
-<header>
-  <h1>La Poción</h1>
-  <p>Jugos que se sienten bien ✨</p>
-</header>
+  <header>
+    <h1>La Poción</h1>
+    <p>Jugos hechos a tu gusto, de una forma fácil y friendly ✨</p>
+  </header>
 
-<section>
+  <div class="container">
 
-  <div class="card">
-    <h2>Tamaños y precios</h2>
-    <p>12 oz — $12</p>
-    <p>16 oz — $15</p>
-    <p>24 oz — $18</p>
+    <div class="card">
+      <h2>Haz tu pedido</h2>
+      <p class="friendly-note">
+        Escoge el tamaño que quieras, selecciona tus ingredientes y añade la cantidad de botellas que deseas.
+        Puedes pedir una sola o combinar varios tamaños en la misma orden.
+      </p>
+      <p class="small">
+        Cada botella incluye hasta 3 ingredientes. Si deseas añadir más, puedes escribirlos en “otros”.
+        <br>
+        Entregas todos los jueves en Montehiedra de 3:00 PM a 6:00 PM.
+      </p>
+    </div>
 
-    <p class="info">
-      Incluye hasta 3 ingredientes.<br>
-      Ingredientes extra desde $2.
-    </p>
+    <div class="card">
+      <label for="customerName">Tu nombre</label>
+      <input type="text" id="customerName" placeholder="Escribe tu nombre">
+    </div>
+
+    <div class="bottle-grid">
+
+      <div class="bottle-box">
+        <h3>Botella de 12 oz</h3>
+        <div class="price">$12</div>
+
+        <label for="qty12">Cantidad</label>
+        <input type="number" id="qty12" min="0" value="0">
+
+        <label>Escoge hasta 3 ingredientes</label>
+        <div class="ingredients-list">
+          <label><input type="checkbox" name="ing12" value="Jengibre"> Jengibre</label>
+          <label><input type="checkbox" name="ing12" value="Limón"> Limón</label>
+          <label><input type="checkbox" name="ing12" value="China"> China</label>
+          <label><input type="checkbox" name="ing12" value="Zanahoria"> Zanahoria</label>
+          <label><input type="checkbox" name="ing12" value="Cúrcuma"> Cúrcuma</label>
+          <label><input type="checkbox" name="ing12" value="Piña"> Piña</label>
+          <label><input type="checkbox" name="ing12" value="Manzana"> Manzana</label>
+          <label><input type="checkbox" name="ing12" value="Apio"> Apio</label>
+        </div>
+
+        <label for="other12">Otros ingredientes o detalles</label>
+        <textarea id="other12" placeholder="Escribe aquí si quieres añadir algo más"></textarea>
+      </div>
+
+      <div class="bottle-box">
+        <h3>Botella de 16 oz</h3>
+        <div class="price">$15</div>
+
+        <label for="qty16">Cantidad</label>
+        <input type="number" id="qty16" min="0" value="0">
+
+        <label>Escoge hasta 3 ingredientes</label>
+        <div class="ingredients-list">
+          <label><input type="checkbox" name="ing16" value="Jengibre"> Jengibre</label>
+          <label><input type="checkbox" name="ing16" value="Limón"> Limón</label>
+          <label><input type="checkbox" name="ing16" value="China"> China</label>
+          <label><input type="checkbox" name="ing16" value="Zanahoria"> Zanahoria</label>
+          <label><input type="checkbox" name="ing16" value="Cúrcuma"> Cúrcuma</label>
+          <label><input type="checkbox" name="ing16" value="Piña"> Piña</label>
+          <label><input type="checkbox" name="ing16" value="Manzana"> Manzana</label>
+          <label><input type="checkbox" name="ing16" value="Apio"> Apio</label>
+        </div>
+
+        <label for="other16">Otros ingredientes o detalles</label>
+        <textarea id="other16" placeholder="Escribe aquí si quieres añadir algo más"></textarea>
+      </div>
+
+      <div class="bottle-box">
+        <h3>Botella de 24 oz</h3>
+        <div class="price">$18</div>
+
+        <label for="qty24">Cantidad</label>
+        <input type="number" id="qty24" min="0" value="0">
+
+        <label>Escoge hasta 3 ingredientes</label>
+        <div class="ingredients-list">
+          <label><input type="checkbox" name="ing24" value="Jengibre"> Jengibre</label>
+          <label><input type="checkbox" name="ing24" value="Limón"> Limón</label>
+          <label><input type="checkbox" name="ing24" value="China"> China</label>
+          <label><input type="checkbox" name="ing24" value="Zanahoria"> Zanahoria</label>
+          <label><input type="checkbox" name="ing24" value="Cúrcuma"> Cúrcuma</label>
+          <label><input type="checkbox" name="ing24" value="Piña"> Piña</label>
+          <label><input type="checkbox" name="ing24" value="Manzana"> Manzana</label>
+          <label><input type="checkbox" name="ing24" value="Apio"> Apio</label>
+        </div>
+
+        <label for="other24">Otros ingredientes o detalles</label>
+        <textarea id="other24" placeholder="Escribe aquí si quieres añadir algo más"></textarea>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <h2>Resumen de tu pedido</h2>
+      <div class="summary" id="orderSummary">
+Aquí verás tu pedido antes de enviarlo.
+      </div>
+      <button onclick="sendOrder()">Enviar pedido por WhatsApp</button>
+    </div>
+
   </div>
 
-  <div class="card">
-    <h2>Ordena tu jugo</h2>
+  <footer>
+    La Poción · Entregas los jueves en Montehiedra de 3:00 PM a 6:00 PM
+  </footer>
 
-    <input id="name" placeholder="Tu nombre">
+  <script>
+    const phone = "17874324865";
 
-    <select id="size">
-      <option value="">Selecciona tamaño</option>
-      <option>12 oz - $12</option>
-      <option>16 oz - $15</option>
-      <option>24 oz - $18</option>
-    </select>
-
-    <textarea id="ingredients" placeholder="Ingredientes (1 a 3 incluidos)"></textarea>
-
-    <textarea id="extra" placeholder="Ingredientes adicionales (+$2)"></textarea>
-
-    <button onclick="sendOrder()">Enviar pedido por WhatsApp</button>
-
-    <p class="info">
-      Entregas todos los jueves en Montehiedra<br>
-      3:00 pm - 6:00 pm
-    </p>
-  </div>
-
-</section>
-
-<script>
-  const phone = "17874324865";
-
-  function sendOrder() {
-    let name = document.getElementById("name").value;
-    let size = document.getElementById("size").value;
-    let ingredients = document.getElementById("ingredients").value;
-    let extra = document.getElementById("extra").value;
-
-    let msg = `Hola, quiero ordenar en La Poción.%0A%0A`;
-    msg += `Nombre: ${name}%0A`;
-    msg += `Tamaño: ${size}%0A`;
-    msg += `Ingredientes: ${ingredients}%0A`;
-
-    if (extra.trim() !== "") {
-      msg += `Extras: ${extra}%0A`;
+    function getCheckedValues(name) {
+      const checked = document.querySelectorAll(`input[name="${name}"]:checked`);
+      return Array.from(checked).map(item => item.value);
     }
 
-    msg += `%0AEntrega jueves en Montehiedra (3pm - 6pm)`;
+    function buildSection(sizeLabel, qtyId, ingName, otherId, price) {
+      const qty = parseInt(document.getElementById(qtyId).value) || 0;
+      const ingredients = getCheckedValues(ingName);
+      const other = document.getElementById(otherId).value.trim();
 
-    window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
-  }
-</script>
+      if (qty <= 0) return null;
+
+      let section = `• ${qty} botella(s) de ${sizeLabel} - $${price} c/u\n`;
+      section += `  Ingredientes: ${ingredients.length ? ingredients.join(", ") : "No seleccionados"}\n`;
+
+      if (other !== "") {
+        section += `  Otros / extras: ${other}\n`;
+      }
+
+      return section;
+    }
+
+    function updateSummary() {
+      const name = document.getElementById("customerName").value.trim();
+
+      const section12 = buildSection("12 oz", "qty12", "ing12", "other12", "12");
+      const section16 = buildSection("16 oz", "qty16", "ing16", "other16", "15");
+      const section24 = buildSection("24 oz", "qty24", "ing24", "other24", "18");
+
+      let summary = "";
+
+      if (name !== "") {
+        summary += `Nombre: ${name}\n\n`;
+      }
+
+      if (section12) summary += section12 + "\n";
+      if (section16) summary += section16 + "\n";
+      if (section24) summary += section24 + "\n";
+
+      if (summary.trim() === "") {
+        summary = "Aquí verás tu pedido antes de enviarlo.";
+      }
+
+      document.getElementById("orderSummary").textContent = summary;
+    }
+
+    function sendOrder() {
+      updateSummary();
+
+      const summaryText = document.getElementById("orderSummary").textContent;
+
+      if (summaryText === "Aquí verás tu pedido antes de enviarlo.") {
+        alert("Por favor, añade al menos una botella a tu pedido.");
+        return;
+      }
+
+      const message = `Hola, quiero hacer un pedido en La Poción ✨%0A%0A${encodeURIComponent(summaryText)}%0A%0AEntrega: Jueves en Montehiedra de 3:00 PM a 6:00 PM`;
+
+      window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+    }
+
+    document.querySelectorAll("input, textarea").forEach(item => {
+      item.addEventListener("input", updateSummary);
+      item.addEventListener("change", updateSummary);
+    });
+
+    updateSummary();
+  </script>
 
 </body>
 </html>
