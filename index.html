@@ -57,22 +57,28 @@
 
     header {
       background: linear-gradient(135deg, var(--green-soft), var(--gold-soft));
-      padding: 78px 20px 58px;
+      padding: 56px 20px 42px;
       text-align: center;
       border-bottom: 1px solid rgba(0,0,0,0.03);
     }
 
-    header h1 {
-      margin: 0;
-      font-family: 'DM Serif Display', serif;
-      font-size: 3.3rem;
-      line-height: 1;
-      color: var(--green-dark);
-      letter-spacing: 0.4px;
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .site-logo {
+      width: 180px;
+      max-width: 70vw;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 8px 18px rgba(91, 67, 48, 0.10));
     }
 
     header p {
-      margin: 14px auto 0;
+      margin: 0 auto;
       max-width: 700px;
       font-size: 1.05rem;
       line-height: 1.7;
@@ -418,8 +424,8 @@
     }
 
     @media (max-width: 640px) {
-      header h1 {
-        font-size: 2.5rem;
+      .site-logo {
+        width: 145px;
       }
 
       .ingredients-grid {
@@ -434,14 +440,20 @@
       .size-card {
         padding: 20px;
       }
+
+      header {
+        padding: 42px 16px 34px;
+      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>La Poción</h1>
-    <p>Jugos hecho a tu gusto, completamente naturales.</p>
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Logo de La Poción" class="site-logo">
+    </div>
+    <p>Jugos hechos a tu gusto, con ingredientes naturales.</p>
   </header>
 
   <div class="container">
@@ -449,8 +461,8 @@
     <div class="card intro-card">
       <h2>Haz tu poción</h2>
       <p>
-        Crea tu poción a tu gusto. Escoge el tamaño que desees y combina hasta tres ingredientes.
-Si deseas añadir más, tendrán un costo adicional comenzando en $2.
+        Escoge el tamaño que desees. Cada botella incluye hasta tres ingredientes.
+        Si deseas añadir más, tendrá un costo adicional que varía dependiendo el ingrediente, comenzando en $2.
       </p>
     </div>
 
@@ -496,9 +508,7 @@ Si deseas añadir más, tendrán un costo adicional comenzando en $2.
 
   </div>
 
-  <footer>
-    La Poción
-  </footer>
+  <footer></footer>
 
   <script>
     const PHONE = "19398813322";
@@ -548,7 +558,7 @@ Si deseas añadir más, tendrán un costo adicional comenzando en $2.
         </div>
 
         <div class="other-title">Otros</div>
-        <textarea data-role="other"></textarea>
+        <textarea data-role="other" placeholder="Escribe aquí si deseas añadir algo más"></textarea>
 
         <div class="warning" data-role="warning"></div>
 
