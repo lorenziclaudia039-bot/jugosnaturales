@@ -1,184 +1,231 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>La Poción</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Poción</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg: #f7f1e8;
-      --bg-soft: #fffaf4;
-      --green: #4f6f52;
-      --green-dark: #35543a;
-      --gold: #d6a84f;
-      --text: #4a372d;
-      --card: #fffdf9;
-      --line: #eadfce;
-      --shadow: 0 12px 30px rgba(91, 67, 48, 0.08);
-      --radius-xl: 26px;
-    }
+<style>
+:root {
+  --bg: #f7f1e8;
+  --green: #4f6f52;
+  --green-dark: #35543a;
+  --gold: #d6a84f;
+  --terracotta: #c9825c;
+  --text: #4a372d;
+  --card: #fffdf9;
+  --line: #eadfce;
+  --shadow: 0 15px 35px rgba(91, 67, 48, 0.08);
+}
 
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
-      color: var(--text);
-    }
+body {
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background: linear-gradient(180deg,#f7f1e8,#fffaf4);
+  color:var(--text);
+}
 
-    /* 🔥 HERO PREMIUM */
-    header {
-      background: radial-gradient(circle at top, #fffaf4, #f7f1e8);
-      text-align: center;
-      padding: 80px 20px 60px;
-    }
+/* HEADER */
+header {
+  text-align:center;
+  padding:80px 20px 50px;
+  background: radial-gradient(circle,#fffaf4,#f7f1e8);
+}
 
-    .logo {
-      width: 260px;
-      max-width: 80%;
-      display: block;
-      margin: 0 auto 20px;
-      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.08));
-    }
+.logo {
+  width:260px;
+  margin-bottom:15px;
+  filter: drop-shadow(0 12px 25px rgba(0,0,0,0.08));
+}
 
-    .tagline {
-      font-size: 1.1rem;
-      max-width: 500px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
+.tagline {
+  font-size:1.1rem;
+}
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
-    }
+/* GENERAL */
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:30px 20px 70px;
+}
 
-    .card {
-      background: var(--card);
-      border-radius: var(--radius-xl);
-      padding: 30px;
-      box-shadow: var(--shadow);
-      margin-bottom: 25px;
-      border: 1px solid var(--line);
-    }
+.card {
+  background:var(--card);
+  border-radius:25px;
+  padding:30px;
+  box-shadow:var(--shadow);
+  margin-bottom:25px;
+  border:1px solid var(--line);
+}
 
-    h2 {
-      text-align: center;
-      font-family: 'DM Serif Display', serif;
-      color: var(--green-dark);
-      margin-top: 0;
-    }
+h2 {
+  text-align:center;
+  font-family:'DM Serif Display',serif;
+  color:var(--green-dark);
+  margin-top:0;
+}
 
-    input {
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-      display: block;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      text-align: center;
-    }
+input {
+  width:100%;
+  max-width:400px;
+  margin:auto;
+  display:block;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  text-align:center;
+}
 
-    .sizes {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
+/* BOTELLAS */
+.bottle-icon {
+  width:75px;
+  display:block;
+  margin:0 auto 10px;
+  filter: drop-shadow(0 8px 15px rgba(0,0,0,0.12));
+}
 
-    .size-card {
-      text-align: center;
-      padding: 25px;
-      border-radius: 20px;
-      background: white;
-      box-shadow: var(--shadow);
-    }
+/* CARDS */
+.sizes {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
 
-    .price {
-      font-weight: bold;
-      margin: 10px 0;
-    }
+.size-card {
+  text-align:center;
+  padding:25px;
+  border-radius:20px;
+  background:white;
+  box-shadow:var(--shadow);
+}
 
-    button {
-      background: var(--green);
-      color: white;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 999px;
-      cursor: pointer;
-      width: 100%;
-    }
+.size-12 h3 { color: var(--green-dark); }
+.size-16 h3 { color: var(--gold); }
+.size-24 h3 { color: var(--terracotta); }
 
-    .summary {
-      text-align: center;
-    }
+.price {
+  font-weight:bold;
+  margin:10px 0;
+}
 
-    .total {
-      font-size: 1.4rem;
-      margin-top: 10px;
-      color: var(--green-dark);
-    }
+button {
+  border:none;
+  padding:12px;
+  border-radius:999px;
+  color:white;
+  width:100%;
+  cursor:pointer;
+}
 
-    .whatsapp {
-      margin-top: 15px;
-    }
-  </style>
+.size-12 button { background:var(--green); }
+.size-16 button { background:var(--gold); }
+.size-24 button { background:var(--terracotta); }
+
+/* RESUMEN */
+.summary {
+  text-align:center;
+}
+
+.total {
+  font-size:1.4rem;
+  margin-top:10px;
+  color:var(--green-dark);
+}
+</style>
 </head>
 
 <body>
 
-  <!-- 🔥 HEADER PREMIUM -->
-  <header>
-    <img src="logo.png" class="logo" alt="La Poción Logo">
-    <p class="tagline">Jugos hechos a tu gusto, con ingredientes naturales.</p>
-  </header>
+<header>
+  <img src="images/logo.png" class="logo">
+  <p class="tagline">Jugos hechos a tu gusto, con ingredientes naturales.</p>
+</header>
 
-  <div class="container">
+<div class="container">
 
-    <div class="card">
-      <h2>Haz tu poción</h2>
-      <p style="text-align:center;">
-        Escoge el tamaño. Incluye hasta 3 ingredientes. Extras desde $2.
-      </p>
-    </div>
+<div class="card">
+  <h2>Haz tu poción</h2>
+  <p style="text-align:center;">
+    Escoge el tamaño. Incluye hasta 3 ingredientes. Extras desde $2.
+  </p>
+</div>
 
-    <div class="card">
-      <input type="text" placeholder="Tu nombre">
-    </div>
+<div class="card">
+  <input type="text" id="customerName" placeholder="Tu nombre">
+</div>
 
-    <div class="sizes">
+<div class="sizes">
 
-      <div class="size-card">
-        <h3>12 oz</h3>
-        <div class="price">$12</div>
-        <button>Añadir</button>
-      </div>
-
-      <div class="size-card">
-        <h3>16 oz</h3>
-        <div class="price">$15</div>
-        <button>Añadir</button>
-      </div>
-
-      <div class="size-card">
-        <h3>24 oz</h3>
-        <div class="price">$18</div>
-        <button>Añadir</button>
-      </div>
-
-    </div>
-
-    <div class="card summary">
-      <h2>Resumen</h2>
-      <p>Aquí verás tu pedido.</p>
-      <div class="total">$0.00</div>
-      <button class="whatsapp">Enviar por WhatsApp</button>
-    </div>
-
+  <div class="size-card size-12">
+    <img src="images/bottle-12.png" class="bottle-icon">
+    <h3>Botella de 12 oz</h3>
+    <div class="price">$12</div>
+    <button onclick="addBottle(12)">Añadir botella</button>
+    <div id="list-12"></div>
   </div>
+
+  <div class="size-card size-16">
+    <img src="images/bottle-16.png" class="bottle-icon">
+    <h3>Botella de 16 oz</h3>
+    <div class="price">$15</div>
+    <button onclick="addBottle(16)">Añadir botella</button>
+    <div id="list-16"></div>
+  </div>
+
+  <div class="size-card size-24">
+    <img src="images/bottle-24.png" class="bottle-icon">
+    <h3>Botella de 24 oz</h3>
+    <div class="price">$18</div>
+    <button onclick="addBottle(24)">Añadir botella</button>
+    <div id="list-24"></div>
+  </div>
+
+</div>
+
+<div class="card">
+  <h2>Entrega</h2>
+  <p style="text-align:center;">Miércoles 3:00 PM - 6:00 PM en Montehiedra</p>
+</div>
+
+<div class="card summary">
+  <h2>Resumen</h2>
+  <div id="summary">Aquí verás tu pedido.</div>
+  <div class="total" id="total">$0.00</div>
+  <button onclick="sendOrder()">Enviar por WhatsApp</button>
+</div>
+
+</div>
+
+<script>
+const PHONE="19398813322";
+const BASE={12:12,16:15,24:18};
+let bottles=[];
+
+function addBottle(size){
+  bottles.push(size);
+  update();
+}
+
+function update(){
+  let text="";
+  let total=0;
+
+  bottles.forEach((b,i)=>{
+    text+=`Botella ${i+1} (${b}oz)\n`;
+    total+=BASE[b];
+  });
+
+  document.getElementById("summary").innerText=text||"Aquí verás tu pedido.";
+  document.getElementById("total").innerText="$"+total.toFixed(2);
+}
+
+function sendOrder(){
+  let message="Hola, quiero ordenar:\n\n"+document.getElementById("summary").innerText+"\nTotal: "+document.getElementById("total").innerText;
+  window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`);
+}
+</script>
 
 </body>
 </html>
