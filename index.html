@@ -1,601 +1,241 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>La Poción</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    :root {
-      --bg: #f7f1e8;
-      --bg-soft: #fffaf4;
-      --green: #4f6f52;
-      --green-dark: #35543a;
-      --gold: #d6a84f;
-      --gold-dark: #a97a1f;
-      --terracotta: #c9825c;
-      --terracotta-dark: #9e5d3c;
-      --text: #4a372d;
-      --muted: #7a675b;
-      --card: #fffdf9;
-      --line: #eadfce;
-      --summary: #fdf6ec;
-      --summary-line: #ecdcc5;
-      --success-soft: #eef6e8;
-      --success-line: #cfe0c6;
-      --warning: #aa6a1f;
-      --shadow: 0 15px 35px rgba(91, 67, 48, 0.08);
-      --radius-xl: 26px;
-      --radius-lg: 20px;
-      --radius-md: 14px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(180deg, var(--bg), var(--bg-soft));
-      color: var(--text);
-    }
-
-    header {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(#f5f3ee, #e8e2d8);
       text-align: center;
-      padding: 80px 20px 50px;
-      background: radial-gradient(circle, #fffaf4, #f7f1e8);
-    }
-
-    .logo {
-      width: 260px;
-      margin-bottom: 15px;
-      filter: drop-shadow(0 12px 25px rgba(0,0,0,0.08));
-    }
-
-    .tagline {
-      font-size: 1.1rem;
-      max-width: 620px;
-      margin: 0 auto;
-      line-height: 1.7;
+      color: #333;
     }
 
     .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 30px 20px 70px;
+      padding: 20px;
     }
 
-    .card {
-      background: var(--card);
-      border-radius: var(--radius-xl);
-      padding: 30px;
-      box-shadow: var(--shadow);
-      margin-bottom: 25px;
-      border: 1px solid var(--line);
+    .logo {
+      width: 120px;
+      margin-bottom: 10px;
     }
 
-    h2 {
-      text-align: center;
-      font-family: 'DM Serif Display', serif;
-      color: var(--green-dark);
-      margin-top: 0;
-      margin-bottom: 12px;
-      font-weight: 400;
+    h1 {
+      margin: 10px 0;
     }
 
-    input,
-    textarea {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      background: white;
+    .subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .bottles {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .bottle {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .bottle:hover {
+      transform: scale(1.05);
+    }
+
+    .bottle img {
+      width: 100px;
+      border-radius: 20px;
+    }
+
+    .selected {
+      outline: 3px solid #c9a86a;
+      border-radius: 20px;
+    }
+
+    .ingredients {
+      margin-top: 30px;
+      display: none;
+    }
+
+    .ingredients button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 20px;
+      background: #d8cbb3;
+      cursor: pointer;
+    }
+
+    .ingredients button.active {
+      background: #a68b5b;
+      color: white;
+    }
+
+    .extra {
+      color: #a33;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .notes {
+      margin-top: 15px;
     }
 
     input {
-      max-width: 420px;
-      margin: auto;
-      display: block;
-      padding: 14px;
-      text-align: center;
-      font-size: 1rem;
+      padding: 10px;
+      width: 80%;
+      border-radius: 10px;
+      border: 1px solid #ccc;
     }
 
-    textarea {
-      min-height: 84px;
-      resize: vertical;
-      padding: 12px;
-      font-size: 0.98rem;
-      text-align: center;
+    .summary {
+      margin-top: 20px;
+      font-weight: bold;
     }
 
-    input:focus,
-    textarea:focus {
-      outline: none;
-      border-color: var(--gold);
-      box-shadow: 0 0 0 4px rgba(214,168,79,0.12);
+    .cta {
+      margin-top: 20px;
     }
 
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-4px); }
-      100% { transform: translateY(0px); }
-    }
-
-    .sizes {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 22px;
-      align-items: start;
-    }
-
-    .size-card {
-      text-align: center;
-      padding: 25px;
-      border-radius: var(--radius-lg);
-      background: white;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(233,223,210,0.75);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .size-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 35px rgba(91, 67, 48, 0.12);
-    }
-
-    .bottle-icon {
-      width: 80px;
-      height: 90px;
-      object-fit: contain;
-      display: block;
-      margin: 0 auto 10px;
-      transition: all 0.3s ease;
-      filter: drop-shadow(0 8px 15px rgba(0,0,0,0.12));
-      animation: float 4s ease-in-out infinite;
-    }
-
-    .size-card:hover .bottle-icon {
-      transform: translateY(-3px) scale(1.05);
-      filter:
-        drop-shadow(0 10px 20px rgba(0,0,0,0.15))
-        drop-shadow(0 0 8px rgba(214,168,79,0.35));
-    }
-
-    .size-12 h3 { color: var(--green-dark); }
-    .size-16 h3 { color: var(--gold-dark); }
-    .size-24 h3 { color: var(--terracotta-dark); }
-
-    .size-card h3 {
-      margin-top: 5px;
-      margin-bottom: 8px;
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.45rem;
-      font-weight: 400;
-    }
-
-    .price {
-      font-weight: 700;
-      margin: 10px 0 16px;
-      font-size: 1.08rem;
-    }
-
-    button {
-      border: none;
-      padding: 12px 16px;
-      border-radius: 999px;
+    .cta a {
+      background: #6b8e23;
       color: white;
-      width: 100%;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.25s ease;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.98rem;
+      padding: 12px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      display: inline-block;
     }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 18px rgba(0,0,0,0.12);
-      filter: brightness(1.05);
-    }
-
-    .size-12 > button { background: var(--green); }
-    .size-16 > button { background: var(--gold); }
-    .size-24 > button { background: var(--terracotta); }
-
-    .bottle-list {
-      margin-top: 18px;
-      text-align: left;
-    }
-
-    .bottle-item {
-      margin-top: 16px;
-      background: linear-gradient(180deg, #fffdf9 0%, #fcf7f0 100%);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 18px;
-    }
-
-    .bottle-item h4 {
-      margin: 0 0 14px;
-      text-align: center;
-      color: var(--green-dark);
-      font-size: 1rem;
-      font-weight: 700;
-    }
-
-    .ingredients-title,
-    .other-title {
-      text-align: center;
-      font-weight: 700;
-      margin-top: 14px;
-      margin-bottom: 10px;
-      color: var(--green-dark);
-      font-size: 0.96rem;
-    }
-
-    .ingredients-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(120px, 1fr));
-      gap: 10px 12px;
-      justify-items: center;
-    }
-
-    .ingredient-option {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      font-size: 0.95rem;
-      color: var(--text);
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.75);
-      border: 1px solid rgba(234,223,206,0.8);
-      text-align: center;
-    }
-
-    .ingredient-option input {
-      width: auto;
-      margin: 0;
-      accent-color: var(--green);
-      box-shadow: none;
-    }
-
-    .warning {
-      margin-top: 12px;
-      text-align: center;
-      color: var(--warning);
-      font-size: 0.92rem;
-      font-weight: 700;
-      min-height: 22px;
-    }
-
-    .bottle-total {
-      margin-top: 12px;
-      background: var(--success-soft);
-      border: 1px solid var(--success-line);
-      border-radius: 16px;
-      padding: 12px;
-      text-align: center;
-      line-height: 1.7;
-      font-size: 0.95rem;
-      color: var(--text);
-    }
-
-    .remove-btn {
-      margin-top: 12px;
-      background: linear-gradient(135deg, #e8cfc3, #efd9cf);
-      color: #7a4b36;
-      box-shadow: none;
-    }
-
-    .summary-box {
-      background: var(--summary);
-      border: 1px solid var(--summary-line);
-      border-radius: 18px;
-      padding: 18px;
-      white-space: pre-line;
-      line-height: 1.8;
-      text-align: center;
-      min-height: 120px;
-      color: var(--text);
-      font-size: 0.98rem;
-    }
-
-    .total {
-      font-size: 1.4rem;
-      margin-top: 12px;
-      color: var(--green-dark);
-      font-weight: 800;
-      text-align: center;
-    }
-
-    .send-btn {
-      background: var(--green);
-      margin-top: 18px;
-    }
-
-    @media (max-width: 640px) {
-      .logo {
-        width: 210px;
-      }
-
-      .ingredients-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .container {
-        padding: 24px 14px 50px;
-      }
-
-      .card,
-      .size-card {
-        padding: 20px;
-      }
-    }
   </style>
 </head>
+
 <body>
 
-  <header>
-    <img src="images/logo.png" class="logo" alt="La Poción">
-    <p class="tagline">Jugos hechos a tu gusto, con ingredientes naturales.</p>
-  </header>
+<div class="container">
 
-  <div class="container">
+  <!-- LOGO -->
+  <img src="images/logo.png" class="logo">
 
-    <div class="card">
-      <h2>Haz tu poción</h2>
-      <p style="text-align:center; line-height:1.8; margin:0;">
-        Escoge el tamaño que desees. Cada botella incluye hasta tres ingredientes.
-        Si deseas añadir más, tendrá un costo adicional que varía dependiendo el ingrediente, comenzando en $2.
-      </p>
+  <h1>Haz tu poción</h1>
+  <p class="subtitle">
+    Escoge tu tamaño. Incluye hasta 3 ingredientes. Extras desde $2.
+  </p>
+
+  <!-- BOTELLAS -->
+  <div class="bottles">
+    <div class="bottle" onclick="selectBottle(12, 12, this)">
+      <img src="images/bottle-12.png">
+      <p>12 oz<br>$12</p>
     </div>
 
-    <div class="card">
-      <input type="text" id="customerName" placeholder="Tu nombre">
+    <div class="bottle" onclick="selectBottle(16, 15, this)">
+      <img src="images/bottle-16.png">
+      <p>16 oz<br>$15</p>
     </div>
 
-    <div class="sizes">
+    <div class="bottle" onclick="selectBottle(24, 18, this)">
+      <img src="images/bottle-24.png">
+      <p>24 oz<br>$18</p>
+    </div>
+  </div>
 
-      <div class="size-card size-12">
-        <img src="images/bottle-12.png" class="bottle-icon" alt="Botella 12 oz">
-        <h3>Botella de 12 oz</h3>
-        <div class="price">$12</div>
-        <button onclick="addBottle(12)">Añadir botella</button>
-        <div class="bottle-list" id="list-12"></div>
-      </div>
+  <!-- INGREDIENTES -->
+  <div class="ingredients" id="ingredients">
+    <h3>Elige tus ingredientes</h3>
 
-      <div class="size-card size-16">
-        <img src="images/bottle-16.png" class="bottle-icon" alt="Botella 16 oz">
-        <h3>Botella de 16 oz</h3>
-        <div class="price">$15</div>
-        <button onclick="addBottle(16)">Añadir botella</button>
-        <div class="bottle-list" id="list-16"></div>
-      </div>
-
-      <div class="size-card size-24">
-        <img src="images/bottle-24.png" class="bottle-icon" alt="Botella 24 oz">
-        <h3>Botella de 24 oz</h3>
-        <div class="price">$18</div>
-        <button onclick="addBottle(24)">Añadir botella</button>
-        <div class="bottle-list" id="list-24"></div>
-      </div>
-
+    <div id="ingredientButtons">
+      <button onclick="toggleIngredient(this)">Zanahoria</button>
+      <button onclick="toggleIngredient(this)">China</button>
+      <button onclick="toggleIngredient(this)">Jengibre</button>
+      <button onclick="toggleIngredient(this)">Cúrcuma</button>
+      <button onclick="toggleIngredient(this)">Limón</button>
+      <button onclick="toggleIngredient(this)">Piña</button>
     </div>
 
-    <div class="card">
-      <h2>Entrega</h2>
-      <p style="text-align:center; margin:0;">Miércoles 3:00 PM - 6:00 PM en Montehiedra</p>
+    <div class="extra" id="extraMsg">
+      Ingrediente adicional +$2
     </div>
 
-    <div class="card summary">
-      <h2>Resumen</h2>
-      <div class="summary-box" id="summary">Aquí verás tu pedido antes de enviarlo.</div>
-      <div class="total" id="total">Total: $0.00</div>
-      <button class="send-btn" onclick="sendOrder()">Enviar por WhatsApp</button>
+    <div class="notes">
+      <input type="text" placeholder="¿Algo adicional o custom?" id="notes">
+    </div>
+
+    <div class="summary" id="summary"></div>
+
+    <div class="cta">
+      <a id="orderBtn" href="#" target="_blank">Ordenar por WhatsApp</a>
     </div>
 
   </div>
 
-  <script>
-    const PHONE = "19398813322";
-    const EXTRA_PRICE = 2;
+</div>
 
-    const BASE = {
-      12: 12,
-      16: 15,
-      24: 18
-    };
+<script>
+let selectedBottle = null;
+let basePrice = 0;
+let selectedIngredients = [];
 
-    const INGREDIENTS = [
-      "Jengibre",
-      "Limón",
-      "China",
-      "Zanahoria",
-      "Cúrcuma",
-      "Piña",
-      "Manzana",
-      "Apio"
-    ];
+function selectBottle(size, price, el) {
+  selectedBottle = size;
+  basePrice = price;
+  selectedIngredients = [];
 
-    let bottleCounter = 0;
+  document.querySelectorAll('.bottle').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
 
-    function addBottle(size) {
-      bottleCounter++;
-      const bottleId = `bottle-${size}-${bottleCounter}`;
-      const list = document.getElementById(`list-${size}`);
+  document.getElementById('ingredients').style.display = 'block';
 
-      const bottle = document.createElement("div");
-      bottle.className = "bottle-item";
-      bottle.dataset.size = size;
-      bottle.dataset.id = bottleId;
+  document.querySelectorAll('#ingredientButtons button').forEach(btn => {
+    btn.classList.remove('active');
+  });
 
-      const ingredientsHtml = INGREDIENTS.map((ingredient) => `
-        <label class="ingredient-option">
-          <input type="checkbox" data-role="ingredient" value="${ingredient}">
-          <span>${ingredient}</span>
-        </label>
-      `).join("");
+  updateSummary();
+}
 
-      bottle.innerHTML = `
-        <h4>${size} oz · Botella ${list.children.length + 1}</h4>
+function toggleIngredient(btn) {
+  const name = btn.innerText;
 
-        <div class="ingredients-title">Escoge tus ingredientes</div>
-        <div class="ingredients-grid">
-          ${ingredientsHtml}
-        </div>
+  if (selectedIngredients.includes(name)) {
+    selectedIngredients = selectedIngredients.filter(i => i !== name);
+    btn.classList.remove('active');
+  } else {
+    selectedIngredients.push(name);
+    btn.classList.add('active');
+  }
 
-        <div class="other-title">Otros</div>
-        <textarea data-role="other" placeholder="Escribe aquí si deseas añadir algo más"></textarea>
+  updateSummary();
+}
 
-        <div class="warning" data-role="warning"></div>
+function updateSummary() {
+  let extraCost = 0;
 
-        <div class="bottle-total" data-role="bottle-total">
-          Base: $${BASE[size].toFixed(2)}<br>
-          Extras: $0.00<br>
-          <strong>Total de esta botella: $${BASE[size].toFixed(2)}</strong>
-        </div>
+  if (selectedIngredients.length > 3) {
+    extraCost = (selectedIngredients.length - 3) * 2;
+    document.getElementById('extraMsg').style.display = 'block';
+  } else {
+    document.getElementById('extraMsg').style.display = 'none';
+  }
 
-        <button class="remove-btn" onclick="removeBottle('${bottleId}')">Eliminar esta botella</button>
-      `;
+  let total = basePrice + extraCost;
 
-      list.appendChild(bottle);
+  document.getElementById('summary').innerText =
+    `Total: $${total} | Ingredientes: ${selectedIngredients.join(', ')}`;
 
-      bottle.querySelectorAll('input[data-role="ingredient"], textarea[data-role="other"]').forEach(el => {
-        el.addEventListener("change", updateAll);
-        el.addEventListener("input", updateAll);
-      });
+  let notes = document.getElementById('notes').value;
 
-      renumberBottles(size);
-      updateAll();
-    }
+  let message = `Hola! Quiero ordenar:\n${selectedBottle} oz\nIngredientes: ${selectedIngredients.join(', ')}\nNotas: ${notes}\nTotal: $${total}`;
 
-    function removeBottle(bottleId) {
-      const bottle = document.querySelector(`[data-id="${bottleId}"]`);
-      if (!bottle) return;
+  document.getElementById('orderBtn').href =
+    `https://wa.me/?text=${encodeURIComponent(message)}`;
+}
+</script>
 
-      const size = bottle.dataset.size;
-      bottle.remove();
-      renumberBottles(size);
-      updateAll();
-    }
-
-    function renumberBottles(size) {
-      const bottles = document.querySelectorAll(`#list-${size} .bottle-item`);
-      bottles.forEach((bottle, index) => {
-        const title = bottle.querySelector("h4");
-        title.textContent = `${size} oz · Botella ${index + 1}`;
-      });
-    }
-
-    function calculateBottle(bottle) {
-      const size = Number(bottle.dataset.size);
-      const basePrice = BASE[size];
-      const checked = bottle.querySelectorAll('input[data-role="ingredient"]:checked');
-      const ingredients = Array.from(checked).map(item => item.value);
-      const extraCount = Math.max(ingredients.length - 3, 0);
-      const extrasTotal = extraCount * EXTRA_PRICE;
-      const total = basePrice + extrasTotal;
-      const other = bottle.querySelector('textarea[data-role="other"]').value.trim();
-
-      const warning = bottle.querySelector('[data-role="warning"]');
-      const bottleTotal = bottle.querySelector('[data-role="bottle-total"]');
-
-      if (extraCount > 0) {
-        warning.textContent = `Seleccionaste ${ingredients.length} ingredientes. ${extraCount} adicional(es) a $${EXTRA_PRICE} c/u.`;
-      } else {
-        warning.textContent = "";
-      }
-
-      bottleTotal.innerHTML = `
-        Base: $${basePrice.toFixed(2)}<br>
-        Extras: $${extrasTotal.toFixed(2)}<br>
-        <strong>Total de esta botella: $${total.toFixed(2)}</strong>
-      `;
-
-      return {
-        size,
-        basePrice,
-        ingredients,
-        extraCount,
-        extrasTotal,
-        total,
-        other
-      };
-    }
-
-    function updateAll() {
-      const allBottles = document.querySelectorAll(".bottle-item");
-      const customerName = document.getElementById("customerName").value.trim();
-      const summaryBox = document.getElementById("summary");
-      const totalBox = document.getElementById("total");
-
-      let summary = "";
-      let total = 0;
-
-      if (customerName) {
-        summary += `Nombre: ${customerName}\n\n`;
-      }
-
-      if (allBottles.length === 0) {
-        summaryBox.textContent = "Aquí verás tu pedido antes de enviarlo.";
-        totalBox.textContent = "Total: $0.00";
-        return;
-      }
-
-      allBottles.forEach((bottle, index) => {
-        const data = calculateBottle(bottle);
-        total += data.total;
-
-        summary += `• Botella ${index + 1} · ${data.size} oz\n`;
-        summary += `  Precio base: $${data.basePrice.toFixed(2)}\n`;
-        summary += `  Ingredientes: ${data.ingredients.length ? data.ingredients.join(", ") : "No seleccionados"}\n`;
-
-        if (data.other) {
-          summary += `  Otros: ${data.other}\n`;
-        }
-
-        if (data.extraCount > 0) {
-          summary += `  Ingredientes extra: ${data.extraCount}\n`;
-          summary += `  Cargo extra: $${data.extrasTotal.toFixed(2)}\n`;
-        }
-
-        summary += `  Subtotal: $${data.total.toFixed(2)}\n\n`;
-      });
-
-      summaryBox.textContent = summary.trim();
-      totalBox.textContent = `Total: $${total.toFixed(2)}`;
-    }
-
-    function sendOrder() {
-      updateAll();
-
-      const summaryText = document.getElementById("summary").textContent;
-      const totalText = document.getElementById("total").textContent;
-
-      if (summaryText === "Aquí verás tu pedido antes de enviarlo.") {
-        alert("Por favor, añade al menos una botella a tu pedido.");
-        return;
-      }
-
-      const message =
-        "Hola, quiero hacer un pedido en La Poción ✨\n\n" +
-        summaryText + "\n\n" +
-        totalText + "\n\n" +
-        "Entrega: Miércoles 3:00 PM - 6:00 PM en Montehiedra";
-
-      window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`, "_blank");
-    }
-
-    document.getElementById("customerName").addEventListener("input", updateAll);
-    updateAll();
-  </script>
 </body>
 </html>
