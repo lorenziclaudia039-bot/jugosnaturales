@@ -1,241 +1,352 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>La Poción</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(#f5f3ee, #e8e2d8);
-      text-align: center;
-      color: #333;
+      background: linear-gradient(180deg, #f7f1e6, #e9ddc8);
+      color: #3b2f24;
     }
 
-    .container {
-      padding: 20px;
+    header {
+      text-align: center;
+      padding: 35px 20px 20px;
     }
 
     .logo {
-      width: 120px;
+      width: 150px;
+      max-width: 70%;
       margin-bottom: 10px;
     }
 
     h1 {
+      font-size: 2.4rem;
       margin: 10px 0;
+      color: #4d3a27;
     }
 
-    .subtitle {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 30px;
+    .intro {
+      max-width: 650px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      line-height: 1.6;
     }
 
-    .bottles {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
+    .section {
+      padding: 25px 20px;
+      max-width: 1100px;
+      margin: auto;
     }
 
-    .bottle {
+    .bottle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      margin-top: 25px;
+    }
+
+    .bottle-card {
+      background: rgba(255, 255, 255, 0.55);
+      border-radius: 28px;
+      padding: 25px 20px;
+      text-align: center;
       cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      box-shadow: 0 10px 25px rgba(71, 55, 35, 0.12);
+    }
+
+    .bottle-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 14px 30px rgba(71, 55, 35, 0.2);
+    }
+
+    .bottle-card.selected {
+      border: 2px solid #9b6f3d;
+      background: #fff8ed;
+    }
+
+    .bottle-card img {
+      width: 150px;
+      height: 210px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 14px rgba(0,0,0,0.18));
       transition: transform 0.3s ease;
     }
 
-    .bottle:hover {
-      transform: scale(1.05);
+    .bottle-card:hover img {
+      transform: scale(1.08);
     }
 
-    .bottle img {
-      width: 100px;
-      border-radius: 20px;
+    .bottle-card h3 {
+      margin: 15px 0 5px;
+      font-size: 1.4rem;
     }
 
-    .selected {
-      outline: 3px solid #c9a86a;
-      border-radius: 20px;
+    .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #7a552e;
+    }
+
+    .order-box {
+      display: none;
+      background: rgba(255, 255, 255, 0.65);
+      border-radius: 30px;
+      padding: 30px;
+      margin-top: 30px;
+      box-shadow: 0 10px 25px rgba(71, 55, 35, 0.12);
+    }
+
+    .order-box.show {
+      display: block;
     }
 
     .ingredients {
-      margin-top: 30px;
-      display: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
     }
 
-    .ingredients button {
-      margin: 5px;
-      padding: 10px 15px;
+    .ingredient-btn {
       border: none;
-      border-radius: 20px;
-      background: #d8cbb3;
+      padding: 13px 15px;
+      border-radius: 25px;
+      background: #efe2c8;
+      color: #3b2f24;
       cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
     }
 
-    .ingredients button.active {
-      background: #a68b5b;
+    .ingredient-btn:hover {
+      transform: translateY(-4px);
+      background: #ddc49d;
+    }
+
+    .ingredient-btn.active {
+      background: #7b9b62;
       color: white;
+      transform: scale(1.05);
     }
 
-    .extra {
-      color: #a33;
-      margin-top: 10px;
+    .notice {
       display: none;
+      background: #fff3d8;
+      border-left: 5px solid #c28a3c;
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 20px;
+      font-size: 0.95rem;
     }
 
-    .notes {
-      margin-top: 15px;
-    }
-
-    input {
-      padding: 10px;
-      width: 80%;
-      border-radius: 10px;
-      border: 1px solid #ccc;
+    textarea, select, input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border: 1px solid #cdbb9f;
+      border-radius: 18px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #fffaf2;
     }
 
     .summary {
-      margin-top: 20px;
+      margin-top: 25px;
+      padding: 20px;
+      background: #f6ead6;
+      border-radius: 22px;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .total {
+      font-size: 1.4rem;
       font-weight: bold;
+      color: #6b4a29;
     }
 
-    .cta {
-      margin-top: 20px;
-    }
-
-    .cta a {
-      background: #6b8e23;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 25px;
-      text-decoration: none;
+    .whatsapp-btn {
       display: inline-block;
+      margin-top: 22px;
+      background: #2f7d4f;
+      color: white;
+      text-decoration: none;
+      padding: 15px 26px;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: all 0.3s ease;
     }
 
+    .whatsapp-btn:hover {
+      transform: translateY(-5px) scale(1.04);
+      background: #25663f;
+      box-shadow: 0 10px 20px rgba(37, 102, 63, 0.25);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+      color: #6d5b47;
+    }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+  <header>
+    <img src="images/logo.png" alt="La Poción" class="logo">
+    <h1>Haz tu poción</h1>
+    <p class="intro">
+      Escoge el tamaño que deseas. Cada botella incluye hasta tres ingredientes.
+      Si deseas añadir más, tendrá un costo adicional desde $2.
+    </p>
+  </header>
 
-  <!-- LOGO -->
-  <img src="images/logo.png" class="logo">
+  <section class="section">
+    <div class="bottle-grid">
 
-  <h1>Haz tu poción</h1>
-  <p class="subtitle">
-    Escoge tu tamaño. Incluye hasta 3 ingredientes. Extras desde $2.
-  </p>
+      <div class="bottle-card" onclick="selectBottle('12 oz', 12, this)">
+        <img src="images/bottle-12.png" alt="Botella 12 oz">
+        <h3>12 oz</h3>
+        <p class="price">$12</p>
+      </div>
 
-  <!-- BOTELLAS -->
-  <div class="bottles">
-    <div class="bottle" onclick="selectBottle(12, 12, this)">
-      <img src="images/bottle-12.png">
-      <p>12 oz<br>$12</p>
+      <div class="bottle-card" onclick="selectBottle('16 oz', 15, this)">
+        <img src="images/bottle-16.png" alt="Botella 16 oz">
+        <h3>16 oz</h3>
+        <p class="price">$15</p>
+      </div>
+
+      <div class="bottle-card" onclick="selectBottle('24 oz', 18, this)">
+        <img src="images/bottle-24.png" alt="Botella 24 oz">
+        <h3>24 oz</h3>
+        <p class="price">$18</p>
+      </div>
+
     </div>
 
-    <div class="bottle" onclick="selectBottle(16, 15, this)">
-      <img src="images/bottle-16.png">
-      <p>16 oz<br>$15</p>
+    <div class="order-box" id="orderBox">
+      <h2>Elige tus ingredientes</h2>
+
+      <div class="ingredients">
+        <button class="ingredient-btn" onclick="toggleIngredient(this)">Zanahoria</button>
+        <button class="ingredient-btn" onclick="toggleIngredient(this)">China</button>
+        <button class="ingredient-btn" onclick="toggleIngredient(this)">Limón</button>
+        <button class="ingredient-btn" onclick="toggleIngredient(this)">Jengibre</button>
+        <button class="ingredient-btn" onclick="toggleIngredient(this)">Cúrcuma</button>
+        <button class="ingredient-btn" onclick="toggleIngredient(this)">Piña</button>
+        <button class="ingredient-btn" onclick="toggleIngredient(this)">Pepino</button>
+        <button class="ingredient-btn" onclick="toggleIngredient(this)">Manzana verde</button>
+        <button class="ingredient-btn" onclick="toggleIngredient(this)">Fresa</button>
+        <button class="ingredient-btn" onclick="toggleIngredient(this)">Parcha</button>
+      </div>
+
+      <div class="notice" id="extraNotice">
+        Añadiste más de 3 ingredientes. Cada ingrediente adicional suma $2.
+      </div>
+
+      <textarea id="customNote" rows="3" placeholder="¿Quieres algún ingrediente especial o alguna nota para tu poción?" oninput="updateSummary()"></textarea>
+
+      <select id="deliveryOption" onchange="updateSummary()">
+        <option value="">Escoge una opción</option>
+        <option value="Pickup en Montehiedra Mall">Pickup en Montehiedra Mall</option>
+        <option value="Delivery / envío coordinado">Delivery / envío coordinado</option>
+      </select>
+
+      <div class="summary" id="summary">
+        Selecciona una botella para comenzar.
+      </div>
+
+      <a class="whatsapp-btn" id="whatsappBtn" href="#" target="_blank">
+        Ordenar por WhatsApp
+      </a>
     </div>
+  </section>
 
-    <div class="bottle" onclick="selectBottle(24, 18, this)">
-      <img src="images/bottle-24.png">
-      <p>24 oz<br>$18</p>
-    </div>
-  </div>
+  <footer>
+    La magia está en los ingredientes.
+  </footer>
 
-  <!-- INGREDIENTES -->
-  <div class="ingredients" id="ingredients">
-    <h3>Elige tus ingredientes</h3>
+  <script>
+    let selectedSize = "";
+    let basePrice = 0;
+    let selectedIngredients = [];
 
-    <div id="ingredientButtons">
-      <button onclick="toggleIngredient(this)">Zanahoria</button>
-      <button onclick="toggleIngredient(this)">China</button>
-      <button onclick="toggleIngredient(this)">Jengibre</button>
-      <button onclick="toggleIngredient(this)">Cúrcuma</button>
-      <button onclick="toggleIngredient(this)">Limón</button>
-      <button onclick="toggleIngredient(this)">Piña</button>
-    </div>
+    function selectBottle(size, price, element) {
+      selectedSize = size;
+      basePrice = price;
 
-    <div class="extra" id="extraMsg">
-      Ingrediente adicional +$2
-    </div>
+      document.querySelectorAll('.bottle-card').forEach(card => {
+        card.classList.remove('selected');
+      });
 
-    <div class="notes">
-      <input type="text" placeholder="¿Algo adicional o custom?" id="notes">
-    </div>
+      element.classList.add('selected');
+      document.getElementById('orderBox').classList.add('show');
 
-    <div class="summary" id="summary"></div>
+      updateSummary();
+    }
 
-    <div class="cta">
-      <a id="orderBtn" href="#" target="_blank">Ordenar por WhatsApp</a>
-    </div>
+    function toggleIngredient(button) {
+      const ingredient = button.innerText;
 
-  </div>
+      if (selectedIngredients.includes(ingredient)) {
+        selectedIngredients = selectedIngredients.filter(item => item !== ingredient);
+        button.classList.remove('active');
+      } else {
+        selectedIngredients.push(ingredient);
+        button.classList.add('active');
+      }
 
-</div>
+      updateSummary();
+    }
 
-<script>
-let selectedBottle = null;
-let basePrice = 0;
-let selectedIngredients = [];
+    function updateSummary() {
+      const extraIngredients = Math.max(0, selectedIngredients.length - 3);
+      const extraCost = extraIngredients * 2;
+      const total = basePrice + extraCost;
 
-function selectBottle(size, price, el) {
-  selectedBottle = size;
-  basePrice = price;
-  selectedIngredients = [];
+      const note = document.getElementById('customNote').value;
+      const delivery = document.getElementById('deliveryOption').value;
 
-  document.querySelectorAll('.bottle').forEach(b => b.classList.remove('selected'));
-  el.classList.add('selected');
+      document.getElementById('extraNotice').style.display = extraIngredients > 0 ? 'block' : 'none';
 
-  document.getElementById('ingredients').style.display = 'block';
+      document.getElementById('summary').innerHTML = `
+        <strong>Tu poción:</strong><br>
+        Tamaño: ${selectedSize || 'No seleccionado'}<br>
+        Ingredientes: ${selectedIngredients.length ? selectedIngredients.join(', ') : 'No seleccionados'}<br>
+        Extras: ${extraIngredients} ingrediente(s) adicional(es)<br>
+        Opción: ${delivery || 'No seleccionada'}<br>
+        Nota: ${note || 'Ninguna'}<br><br>
+        <span class="total">Total: $${total}</span>
+      `;
 
-  document.querySelectorAll('#ingredientButtons button').forEach(btn => {
-    btn.classList.remove('active');
-  });
+      const message = `
+Hola, quiero ordenar una poción:
 
-  updateSummary();
-}
+Tamaño: ${selectedSize}
+Ingredientes: ${selectedIngredients.join(', ')}
+Extras: ${extraIngredients}
+Opción: ${delivery}
+Nota: ${note}
+Total: $${total}
+      `;
 
-function toggleIngredient(btn) {
-  const name = btn.innerText;
-
-  if (selectedIngredients.includes(name)) {
-    selectedIngredients = selectedIngredients.filter(i => i !== name);
-    btn.classList.remove('active');
-  } else {
-    selectedIngredients.push(name);
-    btn.classList.add('active');
-  }
-
-  updateSummary();
-}
-
-function updateSummary() {
-  let extraCost = 0;
-
-  if (selectedIngredients.length > 3) {
-    extraCost = (selectedIngredients.length - 3) * 2;
-    document.getElementById('extraMsg').style.display = 'block';
-  } else {
-    document.getElementById('extraMsg').style.display = 'none';
-  }
-
-  let total = basePrice + extraCost;
-
-  document.getElementById('summary').innerText =
-    `Total: $${total} | Ingredientes: ${selectedIngredients.join(', ')}`;
-
-  let notes = document.getElementById('notes').value;
-
-  let message = `Hola! Quiero ordenar:\n${selectedBottle} oz\nIngredientes: ${selectedIngredients.join(', ')}\nNotas: ${notes}\nTotal: $${total}`;
-
-  document.getElementById('orderBtn').href =
-    `https://wa.me/?text=${encodeURIComponent(message)}`;
-}
-</script>
+      document.getElementById('whatsappBtn').href =
+        `https://wa.me/?text=${encodeURIComponent(message)}`;
+    }
+  </script>
 
 </body>
 </html>
